@@ -2,22 +2,17 @@
 namespace Aldrapay;
 
 class RefundOperation extends ChildTransaction {
-  protected $_reason;
-
-  public function setReason($reason) {
-    $this->_reason = $reason;
-  }
-
-  public function getReason() {
-    return $this->_reason;
-  }
 
   protected function _buildRequestMessage() {
-    $request = parent::_buildRequestMessage();
-
-    $request['request']['reason'] = $this->getReason();
-
-    return $request;
+    
+  	$request = array(
+  			'refundAmount' => $this->money->getAmount(),
+  			'transactionID' => $this->getParentUid(),
+  	);
+  	
+  	Logger::getInstance()->write($request, Logger::DEBUG, get_class() . '::' . __FUNCTION__);
+  	
+  	return $request;
   }
 }
 ?>

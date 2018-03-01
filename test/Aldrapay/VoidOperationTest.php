@@ -5,7 +5,7 @@ class VoidOperationTest extends TestCase {
 
   public function test_setParentUid() {
     $transaction = $this->getTestObjectInstance();
-    $uid = '1234567';
+    $uid = '44444444-1D500CFBC1CAEA888888-00000001';
 
     $transaction->setParentUid($uid);
 
@@ -15,10 +15,7 @@ class VoidOperationTest extends TestCase {
   public function test_buildRequestMessage() {
     $transaction = $this->getTestObject();
     $arr = array(
-      'request' => array(
-        'parent_uid' => '12345678',
-        'amount' => 1256
-      )
+        'transactionID' => '44444444-1D500CFBC1CAEA888888-00000001',
     );
 
     $reflection = new \ReflectionClass( 'Aldrapay\VoidOperation' );
@@ -39,15 +36,15 @@ class VoidOperationTest extends TestCase {
     $method->setAccessible(true);
     $url = $method->invoke($auth, '_endpoint');
 
-    $this->assertEqual($url, Settings::$gatewayBase . '/transactions/voids');
+    $this->assertEqual($url, Settings::$gatewayBase . '/transaction/void');
 
   }
 
   public function test_successVoidRequest() {
 
-    $amount = rand(0,10000);
-
-    $parent = $this->runParentTransaction($amount);
+    $amount = rand(10,40);
+	$trackIdSuccess = 'TRACK-'.date('YmdHi').'-VOID-OK';
+    $parent = $this->runParentTransaction($amount, $trackIdSuccess);
 
     $transaction = $this->getTestObjectInstance();
 
@@ -59,53 +56,58 @@ class VoidOperationTest extends TestCase {
     $this->assertTrue($t_response->isValid());
     $this->assertTrue($t_response->isSuccess());
     $this->assertNotNull($t_response->getUid());
-    $this->assertEqual($t_response->getMessage(),'Successfully processed');
-    $this->assertEqual($t_response->getResponse()->transaction->parent_uid,$parent->getUid());
+    $this->assertEqual($t_response->getMessage(),'Approved');
+    $this->assertEqual($t_response->getResponse()->reasonCode,1);
 
   }
 
   public function test_errorVoidRequest() {
-    $amount = rand(0,10000);
-
-    $parent = $this->runParentTransaction($amount);
+    
+  	$amount = rand(10,40);
+    $trackIdError = 'TRACK-'.date('YmdHi').'-VOID-ERR';
+    $parent = $this->runParentTransaction($amount, $trackIdError);
 
     $transaction = $this->getTestObjectInstance();
 
-    $transaction->money->setAmount($amount + 1);
-    $transaction->setParentUid($parent->getUid());
+    $transaction->money->setAmount($amount + 100);
+    $transaction->setParentUid($parent->getUid().'_UNKOWN');
 
     $t_response = $transaction->submit();
 
     $this->assertTrue($t_response->isValid());
     $this->assertTrue($t_response->isError());
-    $this->assertTrue(preg_match('/Amount can\'t be greater than/', $t_response->getMessage()));
-
   }
 
-  protected function runParentTransaction($amount = 10.00 ) {
+  protected function runParentTransaction($amount = 10.00, $trackId = null ) {
     self::authorizeFromEnv();
 
     $transaction = new AuthorizationOperation();
 
     $transaction->money->setAmount($amount);
-    $transaction->money->setCurrency('EUR');
-    $transaction->setDescription('test');
-    $transaction->setTrackingId('my_custom_variable');
+    $transaction->money->setCurrency('USD');
+    $transaction->setDescription('test auth void');
+    
+    if ($trackId == null)
+    	$transaction->setTrackingId('TRACK-'.date('YmdHi'));
+    else
+    	$transaction->setTrackingId($trackId);
 
-    $transaction->card->setCardNumber('4200000000000000');
+    $transaction->card->setCardNumber('5453010000066167');
     $transaction->card->setCardHolder('John Doe');
     $transaction->card->setCardExpMonth(1);
     $transaction->card->setCardExpYear(2030);
-    $transaction->card->setCardCvc('123');
+    $transaction->card->setCardCvc('777');
 
     $transaction->customer->setFirstName('John');
     $transaction->customer->setLastName('Doe');
-    $transaction->customer->setCountry('LV');
-    $transaction->customer->setAddress('Demo str 12');
-    $transaction->customer->setCity('Riga');
-    $transaction->customer->setZip('LV-1082');
+    $transaction->customer->setCountry('GB');
+    $transaction->customer->setState('London');
+    $transaction->customer->setAddress('Street 45');
+    $transaction->customer->setCity('London');
+    $transaction->customer->setZip('ATE223');
     $transaction->customer->setIp('127.0.0.1');
     $transaction->customer->setEmail('john@example.com');
+    $transaction->customer->setPhone('+447941622127');
 
     return $transaction->submit();
   }
@@ -113,9 +115,7 @@ class VoidOperationTest extends TestCase {
   protected function getTestObject() {
     $transaction = $this->getTestObjectInstance();
 
-    $transaction->setParentUid('12345678');
-
-    $transaction->money->setAmount(12.56);
+    $transaction->setParentUid('44444444-1D500CFBC1CAEA888888-00000001');
 
     return $transaction;
 

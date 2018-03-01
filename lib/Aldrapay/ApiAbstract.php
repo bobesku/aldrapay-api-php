@@ -22,16 +22,17 @@ abstract class ApiAbstract {
   protected function _endpoint() {
   		
   	switch($this->_getTransactionType()){
-  		case 'Authorization':
+  		
+  		case 'authorization':
 		    return Settings::$gatewayBase . '/transaction/authorize' ;
-  		case 'Payment':
+  		case 'payment':
 		    return Settings::$gatewayBase . '/transaction/execute' ;
-  		case 'Refund':
-  		case 'Credit':
+  		case 'refund':
+  		case 'credit':
 		    return Settings::$gatewayBase . '/transaction/refund' ;
-  		case 'Capture':
+  		case 'capture':
 		    return Settings::$gatewayBase . '/transaction/capture' ;
-  		case 'Void':
+  		case 'void':
 		    return Settings::$gatewayBase . '/transaction/void' ;
   		default:
 		    return Settings::$gatewayBase . '/transaction/execute' ;
@@ -40,11 +41,13 @@ abstract class ApiAbstract {
   }
 
   protected function _getTransactionType() {
+  	
     list($module,$klass) = explode('\\', get_class($this));
     $klass = str_replace('Operation', '', $klass);
-    $klass = strtolower($klass) . 's';
+    $klass = strtolower($klass);
     return $klass;
   }
+  
   public function setLanguage($language_code) {
     if (in_array($language_code, Language::getSupportedLanguages())) {
       $this->_language = $language_code;

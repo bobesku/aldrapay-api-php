@@ -69,7 +69,8 @@ class Customer {
     $this->_customer_state = $this->_setNullIfEmpty($state);
   }
   public function getState() {
-    return (in_array($this->_customer_country, array( 'US', 'CA'))) ? $this->_customer_state : null;
+    //return (in_array($this->_customer_country, array( 'US', 'CA'))) ? $this->_customer_state : null;
+    return $this->_customer_state;
   }
 
   public function setZip($zip) {

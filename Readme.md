@@ -1,10 +1,10 @@
 # Aldrapay payment system API integration library
 
-[![Build Status Master](https://travis-ci.org/Aldrapay/Aldrapay-api-php.svg?branch=master)](https://travis-ci.org/Aldrapay/Aldrapay-api-php)
+[![Build Status Master](https://travis-ci.org/bobesku/aldrapay-api-php.svg?branch=master)](https://travis-ci.org/bobesku/aldrapay-api-php)
 
 ## Requirements
 
-PHP 5.3+
+PHP 5.5+
 
 ## Test Account
 
@@ -19,21 +19,21 @@ Refer to the documentation https://secure.aldrapay.com/backoffice/docs/api/testi
 
 ### Setup
 
-Before to use the library classes you must configure it.
+Before using the library classes you must configure it.
 You have to setup values of variables as follows:
 
   * `merchantId`
   * `passCode`
+  * `pSignAlgorithm`
   * `gatewayBase`
-  * `checkoutBase`
 
-This data you will receive from your payment processor.
+You will receive the above data after registering your account.
 
 ```php
 \Aldrapay\Settings::$merchantId  = XXX;
 \Aldrapay\Settings::$passCode = 'XXXXXXXXXXXXXXX';
-\Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com/transaction/execute';
-\Aldrapay\Settings::$checkoutBase = 'https://secure.aldrapay.com/transaction/customerDirect';
+\Aldrapay\Settings::$pSignAlgorithm = 'sha1'; //possible values see \Aldrapay\PSignAlgorithm
+\Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com';
 ```
 
 ### Hosted payment page
@@ -49,8 +49,8 @@ require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/Aldrapay.php';
 
 $transaction = new \Aldrapay\GetPaymentToken;
 
-$transaction->money->setAmount(1.00);
-$transaction->money->setCurrency('EUR');
+$transaction->money->setAmount(5.00);
+$transaction->money->setCurrency('USD');
 $transaction->setDescription('test');
 $transaction->setTrackingId('my_custom_variable');
 $transaction->setLanguage('en');
@@ -62,12 +62,13 @@ $transaction->setCancelUrl('http://www.example.com/cancel');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
-$transaction->customer->setCountry('LV');
+$transaction->customer->setCountry('GB');
 $transaction->customer->setAddress('Demo str 12');
-$transaction->customer->setCity('Riga');
-$transaction->customer->setZip('LV-1082');
+$transaction->customer->setCity('London');
+$transaction->customer->setZip('ATE223');
 $transaction->customer->setIp('127.0.0.1');
 $transaction->customer->setEmail('john@example.com');
+$transaction->customer->setPhone('+441234567890');
 
 $response = $transaction->submit();
 
@@ -89,8 +90,8 @@ require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/Aldrapay.php';
 
 $transaction = new \Aldrapay\Payment;
 
-$transaction->money->setAmount(1.00);
-$transaction->money->setCurrency('EUR');
+$transaction->money->setAmount(5.00);
+$transaction->money->setCurrency('USD');
 $transaction->setDescription('test order');
 $transaction->setTrackingId('my_custom_variable');
 
@@ -102,12 +103,13 @@ $transaction->card->setCardCvc('123');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
-$transaction->customer->setCountry('LV');
+$transaction->customer->setCountry('GB');
 $transaction->customer->setAddress('Demo str 12');
-$transaction->customer->setCity('Riga');
-$transaction->customer->setZip('LV-1082');
+$transaction->customer->setCity('London');
+$transaction->customer->setZip('ATE223');
 $transaction->customer->setIp('127.0.0.1');
 $transaction->customer->setEmail('john@example.com');
+$transaction->customer->setPhone('+441234567890');
 
 $response = $transaction->submit();
 

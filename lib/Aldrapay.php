@@ -23,7 +23,6 @@ if (!class_exists('\Aldrapay\Settings')) {
   require_once (__DIR__ . '/Aldrapay/ResponseBase.php');
   require_once (__DIR__ . '/Aldrapay/Response.php');
   require_once (__DIR__ . '/Aldrapay/ResponseCheckout.php');
-  require_once (__DIR__ . '/Aldrapay/ResponseCardToken.php');
   require_once (__DIR__ . '/Aldrapay/ApiAbstract.php');
   require_once (__DIR__ . '/Aldrapay/ChildTransaction.php');
   require_once (__DIR__ . '/Aldrapay/GatewayTransport.php');
@@ -34,15 +33,7 @@ if (!class_exists('\Aldrapay\Settings')) {
   require_once (__DIR__ . '/Aldrapay/RefundOperation.php');
   require_once (__DIR__ . '/Aldrapay/CreditOperation.php');
   require_once (__DIR__ . '/Aldrapay/QueryByUid.php');
-  require_once (__DIR__ . '/Aldrapay/QueryByTrackingId.php');
-  require_once (__DIR__ . '/Aldrapay/QueryByToken.php');
-  require_once (__DIR__ . '/Aldrapay/GetPaymentToken.php');
-  require_once (__DIR__ . '/Aldrapay/Webhook.php');
-  require_once (__DIR__ . '/Aldrapay/CardToken.php');
   require_once (__DIR__ . '/Aldrapay/PaymentMethod/Base.php');
-  require_once (__DIR__ . '/Aldrapay/PaymentMethod/Erip.php');
   require_once (__DIR__ . '/Aldrapay/PaymentMethod/CreditCard.php');
-  require_once (__DIR__ . '/Aldrapay/PaymentMethod/CreditCardHalva.php');
-  require_once (__DIR__ . '/Aldrapay/PaymentMethod/Emexvoucher.php');
 }
 ?>

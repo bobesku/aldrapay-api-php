@@ -39,16 +39,7 @@ require_once(dirname(__FILE__) . '/Aldrapay/PaymentOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/CaptureOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/VoidOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/RefundOperationTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/CreditOperationTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/GetPaymentTokenTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/QueryByUidTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/QueryByTrackingIdTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/QueryByTokenTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/WebhookTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/GatewayExceptionTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/CreditCardTokenizationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/PaymentMethod/CreditCardTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/PaymentMethod/CreditCardHalvaTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/PaymentMethod/EripTest.php');
-require_once(dirname(__FILE__) . '/Aldrapay/PaymentMethod/EmexvoucherTest.php');
 ?>

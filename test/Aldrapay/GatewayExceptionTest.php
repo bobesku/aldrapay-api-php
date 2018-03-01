@@ -21,10 +21,9 @@ class GatewayTransportExceptionTest extends TestCase {
     $cents = $auth->money->getCents();
 
     $response = $auth->submit();
-
+    
     $this->assertTrue($response->isError());
-    $this->assertPattern("|thedomaindoesntexist.Aldrapaynotexist.com|", $response->getMessage());
-
+    $this->assertEqual($response->getMessage(), 'Failed');
   }
 
   protected function getTestObject($threed = false) {

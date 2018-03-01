@@ -6,9 +6,9 @@ class QueryByUidTest extends TestCase {
   public function test_setUid() {
     $q = $this->getTestObjectInstance();
 
-    $q->setUid('123456');
+    $q->setUid('TEST-TRACK-1234567');
 
-    $this->assertEqual($q->getUid(), '123456');
+    $this->assertEqual($q->getUid(), 'TEST-TRACK-1234567');
   }
 
   public function test_endpoint() {
@@ -21,12 +21,11 @@ class QueryByUidTest extends TestCase {
     $method->setAccessible(true);
     $url = $method->invoke($q, '_endpoint');
 
-    $this->assertEqual($url, Settings::$gatewayBase . '/transactions/1234');
-
+    $this->assertEqual($url, Settings::$gatewayBase . '/transaction/status');
   }
 
   public function test_queryRequest() {
-    $amount = rand(0,10000);
+    $amount = rand(10,40);
 
     $parent = $this->runParentTransaction($amount);
 
@@ -45,39 +44,46 @@ class QueryByUidTest extends TestCase {
   public function test_queryResponseForUnknownUid() {
     $q = $this->getTestObjectInstance();
 
-    $q->setUid('1234567890qwerty');
+    $q->setUid('123456-UNKNOWN');
 
     $response = $q->submit();
 
     $this->assertTrue($response->isValid());
 
-    $this->assertEqual($response->getMessage(), 'Record not found');
+    $this->assertEqual($response->getMessage(), 'Failed');
+    $this->assertEqual($response->getResponse()->reasonCode, 109);
   }
 
-  protected function runParentTransaction($amount = 10.00 ) {
+  protected function runParentTransaction($amount = 10.00, $trackId = null ) {
     self::authorizeFromEnv();
 
     $transaction = new PaymentOperation();
 
     $transaction->money->setAmount($amount);
-    $transaction->money->setCurrency('EUR');
-    $transaction->setDescription('test');
-    $transaction->setTrackingId('my_custom_variable');
+    $transaction->money->setCurrency('USD');
+    $transaction->setDescription('test payment refund');
+    
+    if ($trackId == null)
+    	$transaction->setTrackingId('TRACK-'.date('YmdHi'));
+   	else
+   		$transaction->setTrackingId($trackId);
 
-    $transaction->card->setCardNumber('4200000000000000');
+    $transaction->card->setCardNumber('5453010000066167');
     $transaction->card->setCardHolder('John Doe');
     $transaction->card->setCardExpMonth(1);
     $transaction->card->setCardExpYear(2030);
-    $transaction->card->setCardCvc('123');
+    $transaction->card->setCardCvc('777');
 
     $transaction->customer->setFirstName('John');
     $transaction->customer->setLastName('Doe');
-    $transaction->customer->setCountry('LV');
-    $transaction->customer->setAddress('Demo str 12');
-    $transaction->customer->setCity('Riga');
-    $transaction->customer->setZip('LV-1082');
+    $transaction->customer->setCountry('GB');
+    $transaction->customer->setState('London');
+    $transaction->customer->setAddress('Street 45');
+    $transaction->customer->setCity('London');
+    $transaction->customer->setZip('ATE223');
     $transaction->customer->setIp('127.0.0.1');
     $transaction->customer->setEmail('john@example.com');
+    $transaction->customer->setPhone('+447941622127');
 
     return $transaction->submit();
   }
