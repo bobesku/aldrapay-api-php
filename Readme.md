@@ -19,20 +19,19 @@ Refer to the documentation https://secure.aldrapay.com/backoffice/docs/api/testi
 
 ### Setup
 
-Before to use the library classes you must configure it.
+Before using the library classes you must configure it.
 You have to setup values of variables as follows:
 
   * `merchantId`
   * `passCode`
   * `gatewayBase`
-  * `checkoutBase`
 
-This data you will receive from your payment processor.
+You will receive the above data after registering your account.
 
 ```php
 \Aldrapay\Settings::$merchantId  = XXX;
 \Aldrapay\Settings::$passCode = 'XXXXXXXXXXXXXXX';
-\Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com/transaction/execute';
+\Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com';
 \Aldrapay\Settings::$checkoutBase = 'https://secure.aldrapay.com/transaction/customerDirect';
 ```
 
