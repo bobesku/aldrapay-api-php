@@ -6,12 +6,12 @@ require_once __DIR__ . '/test_shop_data.php';
 
 $transaction = new \Aldrapay\PaymentOperation;
 
-$amount = rand(100, 10000);
+$amount = rand(2, 20);
 
 $transaction->money->setAmount($amount);
 $transaction->money->setCurrency('EUR');
-$transaction->setDescription('test');
-$transaction->setTrackingId('my_custom_variable');
+//$transaction->setDescription('Trx desc '.rand(100,1000));
+$transaction->setTrackingId('ORDER-'.date('ymdHis'));
 
 $transaction->card->setCardNumber('4200000000000000');
 $transaction->card->setCardHolder('John Doe');
@@ -22,10 +22,10 @@ $transaction->card->setCardCvc('123');
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
 $transaction->customer->setCountry('LV');
-$transaction->customer->setAddress('Demo str 12');
+$transaction->customer->setAddress('Demostr12');
 $transaction->customer->setCity('Riga');
 $transaction->customer->setZip('LV-1082');
-$transaction->customer->setIp('127.0.0.1');
+$transaction->customer->setIp('86.120.93.21');
 $transaction->customer->setEmail('john@example.com');
 
 $response = $transaction->submit();

@@ -6,12 +6,12 @@ require_once __DIR__ . '/test_shop_data.php';
 
 $transaction = new \Aldrapay\AuthorizationOperation;
 
-$amount = rand(100, 10000);
+$amount = rand(2, 20);
 
 $transaction->money->setAmount($amount);
 $transaction->money->setCurrency('EUR');
-$transaction->setDescription('test');
-$transaction->setTrackingId('my_custom_variable');
+$transaction->setDescription('Trx desc '.rand(100,1000));
+$transaction->setTrackingId('ORDER-'.date('ymdHis'));
 $transaction->setLanguage('en');
 
 $transaction->card->setCardNumber('4200000000000000');

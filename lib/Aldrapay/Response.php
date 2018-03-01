@@ -4,31 +4,31 @@ namespace Aldrapay;
 class Response extends ResponseBase {
 
   public function isSuccess() {
-    return $this->getStatus() == 'successful';
+    return in_array($this->getStatus(), [ResponseBase::APPROVED, ResponseBase::AUTHORIZED]);
   }
 
   public function isFailed() {
-    return $this->getStatus() == 'failed';
+    return in_array($this->getStatus(), [ResponseBase::FAILED]);
   }
 
   public function isIncomplete() {
-    return $this->getStatus() == 'incomplete';
+    return in_array($this->getStatus(), 
+    		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
   }
 
   public function isPending() {
-    return $this->getStatus() == 'pending';
+    return in_array($this->getStatus(), 
+    		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
   }
 
   public function isTest() {
-    if ($this->hasTransactionSection()) {
-      return $this->getResponse()->transaction->test == true;
-    }
     return false;
   }
 
   public function getStatus() {
-    if ($this->hasTransactionSection()) {
-      return $this->getResponse()->transaction->status;
+  	
+    if (!$this->isError()) {
+      return $this->getResponse()->responseCode;
     }elseif ($this->isError()) {
       return 'error';
     }
@@ -37,7 +37,7 @@ class Response extends ResponseBase {
 
   public function getUid() {
     if ($this->hasTransactionSection()) {
-      return $this->getResponse()->transaction->uid;
+      return $this->getResponse()->transaction->transactionID;
     }else{
       return false;
     }
@@ -45,18 +45,14 @@ class Response extends ResponseBase {
 
   public function getTrackingId() {
     if ($this->hasTransactionSection()) {
-      return $this->getResponse()->transaction->tracking_id;
+      return $this->getResponse()->transaction->orderID;
     }else{
       return false;
     }
   }
 
   public function getPaymentMethod() {
-    if ($this->hasTransactionSection()) {
-      return $this->getResponse()->transaction->payment_method_type;
-    }else{
-      return false;
-    }
+   return false;
   }
 
   public function hasTransactionSection() {
@@ -67,18 +63,37 @@ class Response extends ResponseBase {
 
     if (is_object($this->getResponse())) {
 
-      if (isset($this->getResponse()->message)) {
+      if (isset($this->getResponse()->errorInfo))
+        return $this->getResponse()->errorInfo;
+      
+      else if (isset($this->getResponse()->reasonCode)){
+      	
+		switch($this->getResponse()->reasonCode){
 
-        return $this->getResponse()->message;
-
-      }elseif (isset($this->getResponse()->transaction)) {
-
-        return $this->getResponse()->transaction->message;
-
-      }elseif (is_object($this->getResponse()->response)) {
-
-        return $this->getResponse()->response->message;
-
+			case ResponseBase::APPROVED:
+				return 'Approved';
+			case ResponseBase::AUTHORIZED:
+				return 'Authorized';
+			case ResponseBase::CANCELLED:
+				return 'Cancelled';
+			case ResponseBase::DECLINED:
+				return 'Declined';
+			case ResponseBase::PENDING:
+				return 'Pending';
+			case ResponseBase::PENDING_APPROVAL:
+				return 'Pending Approval';
+			case ResponseBase::PENDING_PROCESSOR:
+				return 'Pending Processor';
+			case ResponseBase::PENDING_REFUND:
+				return 'Pending Refund';
+			case ResponseBase::REDIRECT:
+				return 'Pending Customer Redirect';
+			case ResponseBase::REFUNDED:
+				return 'Refunded';
+				
+			default:
+		        return '';
+		}
       }
     }
 
