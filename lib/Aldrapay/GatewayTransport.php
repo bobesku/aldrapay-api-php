@@ -5,10 +5,6 @@ class GatewayTransport {
 
     public static function submit($merchant_id, $pass_code, $host, $t_request) {
 
-        Logger::getInstance()->write("Building pSign...", Logger::DEBUG, get_class() );
-        $pSignStrig = Settings::$passCode.'|'.Settings::$merchantId.'|'.implode('|',array_values($t_request));
-        Logger::getInstance()->write("pSign String = $pSignStrig", Logger::DEBUG, get_class() );
-        
     	$pSign = ['pSign' => hash(Settings::$pSignAlgorithm, Settings::$passCode.Settings::$merchantId.implode('',array_values($t_request)))];
     	$t_request = array_merge(['merchantID' => $merchant_id], $t_request, $pSign);
     	

@@ -13,11 +13,11 @@ $transaction->money->setCurrency('EUR');
 //$transaction->setDescription('Trx desc '.rand(100,1000));
 $transaction->setTrackingId('ORDER-'.date('ymdHis'));
 
-$transaction->card->setCardNumber('4200000000000000');
+$transaction->card->setCardNumber('4111110000000112');
 $transaction->card->setCardHolder('John Doe');
 $transaction->card->setCardExpMonth(1);
 $transaction->card->setCardExpYear(2030);
-$transaction->card->setCardCvc('123');
+$transaction->card->setCardCvc('001');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');

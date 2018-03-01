@@ -66,9 +66,9 @@ class Response extends ResponseBase {
       if (isset($this->getResponse()->errorInfo))
         return $this->getResponse()->errorInfo;
       
-      else if (isset($this->getResponse()->reasonCode)){
+      else if (isset($this->getResponse()->responseCode)){
       	
-		switch($this->getResponse()->reasonCode){
+		switch($this->getResponse()->responseCode){
 
 			case ResponseBase::APPROVED:
 				return 'Approved';
@@ -78,6 +78,8 @@ class Response extends ResponseBase {
 				return 'Cancelled';
 			case ResponseBase::DECLINED:
 				return 'Declined';
+			case ResponseBase::FAILED:
+				return 'Failed';
 			case ResponseBase::PENDING:
 				return 'Pending';
 			case ResponseBase::PENDING_APPROVAL:
