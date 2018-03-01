@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../lib/BeGateway.php';
+require_once __DIR__ . '/../lib/Aldrapay.php';
 require_once __DIR__ . '/test_shop_data.php';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::DEBUG);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::DEBUG);
 
-$transaction = new \BeGateway\AuthorizationOperation;
+$transaction = new \Aldrapay\AuthorizationOperation;
 
 $amount = rand(100, 10000);
 
@@ -12,7 +12,7 @@ $transaction->money->setAmount($amount);
 $transaction->money->setCurrency('EUR');
 $transaction->setDescription('test');
 $transaction->setTrackingId('my_custom_variable');
-$transaction->setLanguage('ru');
+$transaction->setLanguage('en');
 
 $transaction->card->setCardNumber('4200000000000000');
 $transaction->card->setCardHolder('John Doe');

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-`which php` -f BeGateway.php
+`which php` -f Aldrapay.php

@@ -1,13 +1,13 @@
 <?php
-require_once __DIR__ . '/../lib/BeGateway.php';
+require_once __DIR__ . '/../lib/Aldrapay.php';
 require_once __DIR__ . '/test_shop_data.php';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::DEBUG);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::DEBUG);
 
-$transaction = new \BeGateway\GetPaymentToken;
+$transaction = new \Aldrapay\GetPaymentToken;
 
-$cc = new \BeGateway\PaymentMethod\CreditCard;
-$erip = new \BeGateway\PaymentMethod\Erip(array(
+$cc = new \Aldrapay\PaymentMethod\CreditCard;
+$erip = new \Aldrapay\PaymentMethod\Erip(array(
   'order_id' => 1234,
   'account_number' => '1234',
   'service_no' => '99999999',

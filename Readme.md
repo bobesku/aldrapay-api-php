@@ -1,33 +1,19 @@
-# BeGateway payment system API integration library
+# Aldrapay payment system API integration library
 
-[![Build Status Master](https://travis-ci.org/begateway/begateway-api-php.svg?branch=master)](https://travis-ci.org/begateway/begateway-api-php)
+[![Build Status Master](https://travis-ci.org/Aldrapay/Aldrapay-api-php.svg?branch=master)](https://travis-ci.org/Aldrapay/Aldrapay-api-php)
 
 ## Requirements
 
 PHP 5.3+
 
-## Test data
+## Test Account
 
-### Shop without 3-D Secure
+Please register your merchant test account at https://secure.aldrapay.com/backoffice/register.html before starting the integration
 
-  * Shop Id __361__
-  * Shop secret key __b8647b68898b084b836474ed8d61ffe117c9a01168d867f24953b776ddcb134d__
-
-### Shop with 3-D Secure
-
-  * Shop Id __362__
-  * Shop secret key __9ad8ad735945919845b9a1996af72d886ab43d3375502256dbf8dd16bca59a4e__
-
-### Test data set
-
-  * Card name __John Doe__
-  * Card expiry month __01__ to get a success payment
-  * Card expiry month __10__ to get a failed payment
-  * CVC __123__
 
 ### Test card numbers
 
-Refer to the documentation https://doc.begateway.com/test-integration#test-card-number for valid test card numbers.
+Refer to the documentation https://secure.aldrapay.com/backoffice/docs/api/testing.html#test-cards for valid test card numbers.
 
 ## Getting started
 
@@ -36,18 +22,18 @@ Refer to the documentation https://doc.begateway.com/test-integration#test-card-
 Before to use the library classes you must configure it.
 You have to setup values of variables as follows:
 
-  * `shopId`
-  * `shopKey`
+  * `merchantId`
+  * `passCode`
   * `gatewayBase`
   * `checkoutBase`
 
 This data you will receive from your payment processor.
 
 ```php
-\BeGateway\Settings::$shopId  = 361;
-\BeGateway\Settings::$shopKey = 'b8647b68898b084b836474ed8d61ffe117c9a01168d867f24953b776ddcb134d';
-\BeGateway\Settings::$gatewayBase = 'https://demo-gateway.begateway.com';
-\BeGateway\Settings::$checkoutBase = 'https://checkout.begateway.com';
+\Aldrapay\Settings::$merchantId  = XXX;
+\Aldrapay\Settings::$passCode = 'XXXXXXXXXXXXXXX';
+\Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com/transaction/execute';
+\Aldrapay\Settings::$checkoutBase = 'https://secure.aldrapay.com/transaction/customerDirect';
 ```
 
 ### Hosted payment page
@@ -55,13 +41,13 @@ This data you will receive from your payment processor.
 Simple usage looks like:
 
 ```php
-require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/BeGateway.php';
-\BeGateway\Settings::$shopId  = 361;
-\BeGateway\Settings::$shopKey = 'b8647b68898b084b836474ed8d61ffe117c9a01168d867f24953b776ddcb134d';
+require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/Aldrapay.php';
+\Aldrapay\Settings::$merchantId  = XXX;
+\Aldrapay\Settings::$passCode = 'XXXXXXXXXXXXXXX';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::INFO);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::INFO);
 
-$transaction = new \BeGateway\GetPaymentToken;
+$transaction = new \Aldrapay\GetPaymentToken;
 
 $transaction->money->setAmount(1.00);
 $transaction->money->setCurrency('EUR');
@@ -95,13 +81,13 @@ if ($response->isSuccess() ) {
 Simple usage looks like:
 
 ```php
-require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/BeGateway.php';
-\BeGateway\Settings::$shopId  = 361;
-\BeGateway\Settings::$shopKey = 'b8647b68898b084b836474ed8d61ffe117c9a01168d867f24953b776ddcb134d';
+require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/Aldrapay.php';
+\Aldrapay\Settings::$merchantId  = XXX;
+\Aldrapay\Settings::$passCode = 'b8647b68898b084b';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::INFO);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::INFO);
 
-$transaction = new \BeGateway\Payment;
+$transaction = new \Aldrapay\Payment;
 
 $transaction->money->setAmount(1.00);
 $transaction->money->setCurrency('EUR');
@@ -145,12 +131,12 @@ transactions.
 
 ## Documentation
 
-Visit https://doc.begateway.com for up-to-date documentation.
+Visit https://secure.aldrapay.com/backoffice/docs/api/index.html for up-to-date documentation.
 
 ## Tests
 
 To run tests
 
 ```bash
-php -f ./test/BeGateway.php
+php -f ./test/Aldrapay.php
 ```

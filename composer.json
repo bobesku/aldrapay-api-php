@@ -1,16 +1,15 @@
 {
-    "name": "begateway/begateway-api-php",
-    "description" : "BeGateway PHP API library",
+    "name": "bobesku/aldrapay-api-php",
+    "description" : "Aldrapay PHP API library",
     "keywords": [
-      "bepaid",
-      "begateway",
+      "aldrapay",
       "payment processing",
       "api"
     ],
     "license" : "MIT",
     "authors": [
-      { "name" : "BeGateway",
-        "email": "admin@begateway.com"
+      { "name" : "Aldrapay",
+        "email": "techteam@aldrapay.com"
       }
     ],
     "require" : {
@@ -20,6 +19,6 @@
         "ext-mbstring": "*"
     },
     "autoload": {
-     "psr-4": { "BeGateway\\" : "lib/BeGateway" }
+     "psr-4": { "Bobesku\\" : "lib/Aldrapay" }
     }
 }

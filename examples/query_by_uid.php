@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../lib/BeGateway.php';
+require_once __DIR__ . '/../lib/Aldrapay.php';
 require_once __DIR__ . '/test_shop_data.php';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::DEBUG);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::DEBUG);
 
-$transaction = new \BeGateway\Payment;
+$transaction = new \Aldrapay\Payment;
 
 $amount = rand(100, 10000);
 
@@ -38,7 +38,7 @@ if ($response->isSuccess() ) {
   print("Transaction UID: " . $response->getUid() . PHP_EOL);
   print("Trying to Query by UID " . $response->getUid() . PHP_EOL);
 
-  $query = new \BeGateway\QueryByUid;
+  $query = new \Aldrapay\QueryByUid;
   $query->setUid($response->getUid());
 
   $query_response = $query->submit();

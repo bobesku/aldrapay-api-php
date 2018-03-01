@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../lib/BeGateway.php';
+require_once __DIR__ . '/../lib/Aldrapay.php';
 require_once __DIR__ . '/test_shop_data.php';
 
-\BeGateway\Logger::getInstance()->setLogLevel(\BeGateway\Logger::DEBUG);
+\Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::DEBUG);
 
-$transaction = new \BeGateway\GetPaymentToken;
+$transaction = new \Aldrapay\GetPaymentToken;
 
-$voucher = new \BeGateway\PaymentMethod\Emexvoucher;
+$voucher = new \Aldrapay\PaymentMethod\Emexvoucher;
 
 $transaction->addPaymentMethod($voucher);
 
