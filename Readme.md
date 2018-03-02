@@ -1,6 +1,6 @@
 # Aldrapay payment system API integration library
 
-[![Build Status Master](https://travis-ci.org/Aldrapay/Aldrapay-api-php.svg?branch=master)](https://travis-ci.org/Aldrapay/Aldrapay-api-php)
+[![Build Status Master](https://travis-ci.org/bobesku/aldrapay-api-php.svg?branch=master)](https://travis-ci.org/bobesku/aldrapay-api-php)
 
 ## Requirements
 
