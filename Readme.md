@@ -4,7 +4,7 @@
 
 ## Requirements
 
-PHP 5.3+
+PHP 5.5+
 
 ## Test Account
 
@@ -24,6 +24,7 @@ You have to setup values of variables as follows:
 
   * `merchantId`
   * `passCode`
+  * `pSignAlgorithm`
   * `gatewayBase`
 
 You will receive the above data after registering your account.
@@ -31,8 +32,8 @@ You will receive the above data after registering your account.
 ```php
 \Aldrapay\Settings::$merchantId  = XXX;
 \Aldrapay\Settings::$passCode = 'XXXXXXXXXXXXXXX';
+\Aldrapay\Settings::$pSignAlgorithm = 'sha1'; //possible values see \Aldrapay\PSignAlgorithm
 \Aldrapay\Settings::$gatewayBase = 'https://secure.aldrapay.com';
-\Aldrapay\Settings::$checkoutBase = 'https://secure.aldrapay.com/transaction/customerDirect';
 ```
 
 ### Hosted payment page

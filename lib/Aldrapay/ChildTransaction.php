@@ -19,10 +19,8 @@ abstract class ChildTransaction extends ApiAbstract {
 
   protected function _buildRequestMessage() {
     $request = array(
-      'request' => array(
-        'parent_uid' => $this->getParentUid(),
-        'amount' => $this->money->getCents()
-      ),
+        'amount' => $this->money->getAmount(),
+        'transactionID' => $this->getParentUid(),
     );
 
     Logger::getInstance()->write($request, Logger::DEBUG, get_class() . '::' . __FUNCTION__);

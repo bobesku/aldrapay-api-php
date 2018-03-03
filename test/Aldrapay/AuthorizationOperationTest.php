@@ -37,48 +37,39 @@ class AuthorizationOperationTest extends TestCase {
 
   public function test_buildRequestMessage() {
     $auth = $this->getTestObject();
+    
     $arr = array(
-      'request' => array(
-        'amount' => 1233,
-        'currency' => 'EUR',
-        'description' => 'test',
-        'tracking_id' => 'my_custom_variable',
-        'notification_url' => '',
-        'return_url' => '',
-        'language' => 'de',
-        'credit_card' => array(
-          'number' => '4200000000000000',
-          'verification_value' => '123',
-          'holder' => 'John Doe',
-          'exp_month' => '01',
-          'exp_year' => '2030',
-          'token' => '',
-          'skip_three_d_secure_verification' => '',
-        ),
-
-        'customer' => array(
-          'ip' => '127.0.0.1',
-          'email' => 'john@example.com',
-          'birth_date' => '1970-01-01'
-        ),
-
-        'billing_address' => array(
-          'first_name' => 'John',
-          'last_name' => 'Doe',
-          'country' => 'LV',
-          'city' => 'Riga',
-          'state' => '',
-          'zip' => 'LV-1082',
-          'address' => 'Demo str 12',
-          'phone' => ''
-        )
-      )
+    		'amount' => 12.33,
+    		'currency' => 'USD',
+    		'orderID' => 'TRACK-'.date('YmdHi'),
+    		'returnURL' => '',
+    		'notifyURL' => '',
+    		'customerIP' => '127.0.0.1',
+    		//'customerForwardedIP' => $this->customer->getIP(),
+    		//'customerUserAgent' => 'n/a',
+    		//'customerAcceptLanguage' => $this->getLanguage(),
+    		'customerEmail' => 'john@example.com',
+    		'customerPhone' => '+447941622127',
+    		'customerFirstName' => 'John',
+    		'customerLastName' => 'Doe',
+    		'customerAddress1' => 'Street 45',
+    		//'customerAddress2' => $this->customer->getAddress(),
+    		'customerCity' => 'London',
+    		'customerZipCode' => 'ATE223',
+    		'customerStateProvince' => 'London',
+    		'customerCountry' => 'GB',
+    		'cardNumber' => '4111110000000112',
+    		'cardCVV2' => '001',
+    		'cardExpiryDate' => '0130',
+    		'cardHolderName' => 'John Doe',
+    		//'cardHolderName' => $this->customer->getFirstName() . $this->customer->getLastName(),
+    		//'saveCard' => $this->registerToken(),
+    		'description' => 'test',
     );
-
+    
     $reflection = new \ReflectionClass( 'Aldrapay\AuthorizationOperation');
     $method = $reflection->getMethod('_buildRequestMessage');
     $method->setAccessible(true);
-
     $request = $method->invoke($auth, '_buildRequestMessage');
 
     $this->assertEqual($arr, $request);
@@ -93,7 +84,7 @@ class AuthorizationOperationTest extends TestCase {
     $method->setAccessible(true);
     $url = $method->invoke($auth, '_endpoint');
 
-    $this->assertEqual($url, Settings::$gatewayBase . '/transactions/authorizations');
+    $this->assertEqual($url, Settings::$gatewayBase . '/transaction/authorize');
   }
 
   public function test_successAuthorization() {
@@ -102,66 +93,62 @@ class AuthorizationOperationTest extends TestCase {
     $amount = rand(0,10000) / 100;
 
     $auth->money->setAmount($amount);
+    $auth->setTrackingId($auth->getTrackingId().'SUCCESS');
     $cents = $auth->money->getCents();
 
     $response = $auth->submit();
 
     $this->assertTrue($response->isValid());
     $this->assertTrue($response->isSuccess());
-    $this->assertEqual($response->getMessage(), 'Successfully processed');
+    $this->assertEqual($response->getMessage(), 'Authorized');
     $this->assertNotNull($response->getUid());
-    $this->assertEqual($response->getStatus(), 'successful');
-    $this->assertEqual($cents, $response->getResponse()->transaction->amount);
+    $this->assertEqual($response->getStatus(), '10');
+    $this->assertEqual($amount, $response->getResponse()->transaction->amount);
 
     $arResponse = $response->getResponseArray();
-    $this->assertEqual($cents, $arResponse['transaction']['amount']);
+    $this->assertEqual($amount, $arResponse['transaction']['amount']);
   }
 
-  public function test_incompleteAuthorization() {
+  public function test_declinedAuthorization() {
     $auth = $this->getTestObject(true);
 
     $amount = rand(0,10000) / 100;
 
+    $auth->setTrackingId($auth->getTrackingId().'DECLINED');
     $auth->money->setAmount($amount);
-    $auth->card->setCardNumber('4012001037141112');
+    $auth->card->setCardCvc('002');
     $cents = $auth->money->getCents();
 
     $response = $auth->submit();
 
     $this->assertTrue($response->isValid());
-    $this->assertTrue($response->isIncomplete());
-    $this->assertFalse($response->getMessage());
+    $this->assertTrue($response->isDeclined());
+    $this->assertEqual('Declined', $response->getMessage());
     $this->assertNotNull($response->getUid());
-    $this->assertNotNull($response->getResponse()->transaction->redirect_url);
-    $this->assertTrue(preg_match('/process/', $response->getResponse()->transaction->redirect_url));
-    $this->assertEqual($response->getStatus(), 'incomplete');
-    $this->assertEqual($cents, $response->getResponse()->transaction->amount);
+    $this->assertEqual($response->getStatus(), '2');
+    $this->assertEqual($amount, $response->getResponse()->transaction->amount);
 
     $arResponse = $response->getResponseArray();
-    $this->assertEqual($cents, $arResponse['transaction']['amount']);
+    $this->assertEqual($amount, $arResponse['transaction']['amount']);
   }
 
   public function test_failedAuthorization() {
-    $auth = $this->getTestObject();
+    $auth = $this->getTestObject(true);
 
     $amount = rand(0,10000) / 100;
 
+    $auth->setTrackingId($auth->getTrackingId().'DECLINED');
     $auth->money->setAmount($amount);
+    $auth->card->setCardCvc('003');
     $cents = $auth->money->getCents();
-    $auth->card->setCardExpMonth(10);
 
     $response = $auth->submit();
 
-    $this->assertTrue($response->isValid());
     $this->assertTrue($response->isFailed());
-    $this->assertEqual($response->getMessage(), 'Authorization was declined');
-    $this->assertNotNull($response->getUid());
-    $this->assertEqual($response->getStatus(), 'failed');
-    $this->assertEqual($cents, $response->getResponse()->transaction->amount);
-
-    $arResponse = $response->getResponseArray();
-    $this->assertEqual($cents, $arResponse['transaction']['amount']);
+    $this->assertEqual('Failed', $response->getMessage());
+    $this->assertEqual($response->getStatus(), '3');
   }
+
 
   public function test_errorAuthorization() {
 
@@ -169,6 +156,7 @@ class AuthorizationOperationTest extends TestCase {
 
     $amount = rand(0,10000) / 100;
 
+    $auth->setTrackingId($auth->getTrackingId().'ERROR');
     $auth->money->setAmount($amount);
     $cents = $auth->money->getCents();
     $auth->card->setCardExpYear(10);
@@ -177,35 +165,36 @@ class AuthorizationOperationTest extends TestCase {
 
     $this->assertTrue($response->isValid());
     $this->assertTrue($response->isError());
-    $this->assertEqual($response->getMessage(), 'Exp year Invalid. Format should be: yyyy. Date is expired.');
-    $this->assertEqual($response->getStatus(), 'error');
+    $this->assertEqual($response->getMessage(), 'Invalid length of field -> cardExpiryDate | min:4, max:4');
+    $this->assertEqual($response->getStatus(), '3');
   }
 
   protected function getTestObject($threed = false) {
 
     $transaction = $this->getTestObjectInstance($threed);
-
+    
     $transaction->money->setAmount(12.33);
-    $transaction->money->setCurrency('EUR');
+    $transaction->money->setCurrency('USD');
     $transaction->setDescription('test');
-    $transaction->setTrackingId('my_custom_variable');
-    $transaction->setLanguage('de');
+    $transaction->setTrackingId('TRACK-'.date('YmdHi'));
+    $transaction->setLanguage('en');
 
-    $transaction->card->setCardNumber('4200000000000000');
+    $transaction->card->setCardNumber('4111110000000112');
     $transaction->card->setCardHolder('John Doe');
     $transaction->card->setCardExpMonth(1);
     $transaction->card->setCardExpYear(2030);
-    $transaction->card->setCardCvc('123');
+    $transaction->card->setCardCvc('001');
 
     $transaction->customer->setFirstName('John');
     $transaction->customer->setLastName('Doe');
-    $transaction->customer->setCountry('LV');
-    $transaction->customer->setAddress('Demo str 12');
-    $transaction->customer->setCity('Riga');
-    $transaction->customer->setZip('LV-1082');
+    $transaction->customer->setCountry('GB');
+    $transaction->customer->setState('London');
+    $transaction->customer->setAddress('Street 45');
+    $transaction->customer->setCity('London');
+    $transaction->customer->setZip('ATE223');
     $transaction->customer->setIp('127.0.0.1');
     $transaction->customer->setEmail('john@example.com');
-    $transaction->customer->setBirthDate('1970-01-01');
+    $transaction->customer->setPhone('+447941622127');
 
     return $transaction;
   }

@@ -5,7 +5,7 @@ class QueryByUid extends ApiAbstract {
   protected $_uid;
 
   protected function _endpoint() {
-    return Settings::$gatewayBase . '/transaction/status' . $this->getUid();
+    return Settings::$gatewayBase . '/transaction/status';
   }
   public function setUid($uid) {
     $this->_uid = $uid;
@@ -14,7 +14,14 @@ class QueryByUid extends ApiAbstract {
     return $this->_uid;
   }
   protected function _buildRequestMessage() {
-    return '';
+   
+  	$request = array(
+  			'transactionID' => $this->getUid(),
+  	);
+  	 
+  	Logger::getInstance()->write($request, Logger::DEBUG, get_class() . '::' . __FUNCTION__);
+  	 
+  	return $request;
   }
 }
 ?>

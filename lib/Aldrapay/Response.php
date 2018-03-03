@@ -16,6 +16,10 @@ class Response extends ResponseBase {
     		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
   }
 
+  public function isDeclined() {
+    return in_array($this->getStatus(), [ResponseBase::DECLINED]);
+  }
+
   public function isPending() {
     return in_array($this->getStatus(), 
     		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
@@ -27,12 +31,10 @@ class Response extends ResponseBase {
 
   public function getStatus() {
   	
-    if (!$this->isError()) {
+    if (isset($this->getResponse()->responseCode))
       return $this->getResponse()->responseCode;
-    }elseif ($this->isError()) {
-      return 'error';
-    }
-    return false;
+    else
+      return null;
   }
 
   public function getUid() {

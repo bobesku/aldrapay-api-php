@@ -70,7 +70,6 @@ class AuthorizationOperation extends ApiAbstract {
         'cardCVV2' => $this->card->getCardCvc(),
         'cardExpiryDate' => str_pad($this->card->getCardExpMonth(),2,'0',STR_PAD_LEFT).substr($this->card->getCardExpYear(),2),
         'cardHolderName' => $this->card->getCardHolder(),
-    	//'cardHolderName' => $this->customer->getFirstName() . $this->customer->getLastName(), 
     	//'saveCard' => $this->registerToken(),
         'description' => $this->getDescription(),
     );
