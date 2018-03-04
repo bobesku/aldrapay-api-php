@@ -10,9 +10,8 @@ $amount = rand(2, 20);
 
 $transaction->money->setAmount($amount);
 $transaction->money->setCurrency('EUR');
-$transaction->setDescription('Trx desc '.rand(100,1000));
+//$transaction->setDescription('Trx desc '.rand(100,1000));
 $transaction->setTrackingId('ORDER-'.date('ymdHis'));
-$transaction->setLanguage('en');
 
 $transaction->card->setCardNumber('5453010000066167');
 $transaction->card->setCardHolder('John Doe');
@@ -22,12 +21,13 @@ $transaction->card->setCardCvc('777');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
-$transaction->customer->setCountry('LV');
-$transaction->customer->setAddress('Demo str 12');
-$transaction->customer->setCity('Riga');
-$transaction->customer->setZip('LV-1082');
+$transaction->customer->setCountry('GB');
+$transaction->customer->setAddress('Demo Street 12');
+$transaction->customer->setCity('London');
+$transaction->customer->setZip('ATE223');
 $transaction->customer->setIp('127.0.0.1');
 $transaction->customer->setEmail('john@example.com');
+$transaction->customer->setPhone('+441234567890');
 
 
 $response = $transaction->submit();

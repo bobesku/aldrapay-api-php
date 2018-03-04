@@ -6,27 +6,28 @@ require_once __DIR__ . '/test_shop_data.php';
 
 $transaction = new \Aldrapay\AuthorizationOperation;
 
-$amount = rand(100, 10000);
+$amount = rand(2, 20);
 
 $transaction->money->setAmount($amount);
-$transaction->money->setCurrency('EUR');
-$transaction->setDescription('test');
-$transaction->setTrackingId('my_custom_variable');
+$transaction->money->setCurrency('USD');
+// $transaction->setDescription('test');
+$transaction->setTrackingId('ORDER-'.date('ymdHis'));
 
-$transaction->card->setCardNumber('4200000000000000');
+$transaction->card->setCardNumber('5453010000066167');
 $transaction->card->setCardHolder('John Doe');
 $transaction->card->setCardExpMonth(1);
 $transaction->card->setCardExpYear(2030);
-$transaction->card->setCardCvc('123');
+$transaction->card->setCardCvc('777');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
-$transaction->customer->setCountry('LV');
-$transaction->customer->setAddress('Demo str 12');
-$transaction->customer->setCity('Riga');
-$transaction->customer->setZip('LV-1082');
+$transaction->customer->setCountry('GB');
+$transaction->customer->setAddress('Demo Street 12');
+$transaction->customer->setCity('London');
+$transaction->customer->setZip('ATE223');
 $transaction->customer->setIp('127.0.0.1');
 $transaction->customer->setEmail('john@example.com');
+$transaction->customer->setPhone('+441234567890');
 
 $response = $transaction->submit();
 
