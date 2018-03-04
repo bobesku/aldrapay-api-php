@@ -45,6 +45,14 @@ class Response extends ResponseBase {
     }
   }
 
+  public function getRedirectUrl() {
+    if (isset($this->getResponse()->redirectURL)) {
+      return $this->getResponse()->redirectURL;
+    }else{
+      return false;
+    }
+  }
+
   public function getTrackingId() {
     if ($this->hasTransactionSection()) {
       return $this->getResponse()->transaction->orderID;

@@ -19,6 +19,20 @@ abstract class ApiAbstract {
     return GatewayTransport::submit( Settings::$merchantId, Settings::$passCode , $this->_endpoint(), $this->_buildRequestMessage() );
   }
 
+  public function submitGetParams() {
+    try {
+      $response = $this->_remoteRequestPrepare();
+    } catch (\Exception $e) {
+      $msg = $e->getMessage();
+      $response = '{ "errors":"' . $msg . '", "message":"' . $msg . '" }';
+    }
+    return $response;
+  }
+  
+  protected function _remoteRequestPrepare() {
+    return GatewayTransport::submitGetParams( Settings::$merchantId, Settings::$passCode , $this->_endpoint(), $this->_buildRequestMessage() );
+  }
+
   protected function _endpoint() {
   		
   	switch($this->_getTransactionType()){

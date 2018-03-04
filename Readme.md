@@ -47,7 +47,7 @@ require_once __DIR__ . 'PATH_TO_INSTALLED_LIBRARY/lib/Aldrapay.php';
 
 \Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::INFO);
 
-$transaction = new \Aldrapay\GetPaymentToken;
+$transaction = new \Aldrapay\PaymentHostedPageOperation;
 
 $transaction->money->setAmount(5.00);
 $transaction->money->setCurrency('USD');
@@ -55,10 +55,7 @@ $transaction->setDescription('test');
 $transaction->setTrackingId('my_custom_variable');
 $transaction->setLanguage('en');
 $transaction->setNotificationUrl('http://www.example.com/notify');
-$transaction->setSuccessUrl('http://www.example.com/success');
-$transaction->setDeclineUrl('http://www.example.com/decline');
-$transaction->setFailUrl('http://www.example.com/fail');
-$transaction->setCancelUrl('http://www.example.com/cancel');
+$transaction->setReturnUrl('http://www.example.com/return');
 
 $transaction->customer->setFirstName('John');
 $transaction->customer->setLastName('Doe');
@@ -73,7 +70,14 @@ $transaction->customer->setPhone('+441234567890');
 $response = $transaction->submit();
 
 if ($response->isSuccess() ) {
-  header("Location: " . $response->getRedirectUrl() );
+
+  $customerRedirect = new CustomerRedirectHostedPage($response->getRedirectUrl(), $response->getUid());
+  $customerRedirect->money = $transaction->money;
+  $customerRedirect->setTrackingId('my_custom_variable');
+  $customerRedirect->setReturnUrl('http://www.example.com/return');
+  $customerRedirect->setNotificationUrl('http://www.example.com/notify');
+
+  header("Location: " . $customerRedirect->getFullRedirectUrl());
 }
 ```
 

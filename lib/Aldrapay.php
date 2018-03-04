@@ -27,7 +27,10 @@ if (!class_exists('\Aldrapay\Settings')) {
   require_once (__DIR__ . '/Aldrapay/ChildTransaction.php');
   require_once (__DIR__ . '/Aldrapay/GatewayTransport.php');
   require_once (__DIR__ . '/Aldrapay/AuthorizationOperation.php');
+  require_once (__DIR__ . '/Aldrapay/AuthorizationHostedPageOperation.php');
   require_once (__DIR__ . '/Aldrapay/PaymentOperation.php');
+  require_once (__DIR__ . '/Aldrapay/PaymentHostedPageOperation.php');
+  require_once (__DIR__ . '/Aldrapay/CustomerRedirectHostedPage.php');
   require_once (__DIR__ . '/Aldrapay/CaptureOperation.php');
   require_once (__DIR__ . '/Aldrapay/VoidOperation.php');
   require_once (__DIR__ . '/Aldrapay/RefundOperation.php');
