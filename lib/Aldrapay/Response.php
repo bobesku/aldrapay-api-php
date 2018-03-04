@@ -4,25 +4,25 @@ namespace Aldrapay;
 class Response extends ResponseBase {
 
   public function isSuccess() {
-    return in_array($this->getStatus(), [ResponseBase::APPROVED, ResponseBase::AUTHORIZED]);
+    return in_array($this->getStatus(), array(ResponseBase::APPROVED, ResponseBase::AUTHORIZED));
   }
 
   public function isFailed() {
-    return in_array($this->getStatus(), [ResponseBase::FAILED]);
+    return in_array($this->getStatus(), array(ResponseBase::FAILED));
   }
 
   public function isIncomplete() {
     return in_array($this->getStatus(), 
-    		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
+    		array(ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND));
   }
 
   public function isDeclined() {
-    return in_array($this->getStatus(), [ResponseBase::DECLINED]);
+    return in_array($this->getStatus(), array(ResponseBase::DECLINED));
   }
 
   public function isPending() {
     return in_array($this->getStatus(), 
-    		[ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND]);
+    		array(ResponseBase::PENDING, ResponseBase::PENDING_APPROVAL, ResponseBase::PENDING_PROCESSOR, ResponseBase::PENDING_REFUND));
   }
 
   public function isTest() {
