@@ -20,6 +20,6 @@
         "ext-mbstring": "*"
     },
     "autoload": {
-     "psr-4": { "Bobesku\\" : "lib/Aldrapay" }
+     "psr-4": { "Aldrapay\\" : "lib/Aldrapay" }
     }
 }
