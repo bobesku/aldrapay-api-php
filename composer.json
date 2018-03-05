@@ -1,7 +1,7 @@
 {
     "name": "bobesku/aldrapay-api-php",
     "description" : "Aldrapay PHP API library",
-    "version": "1.0",
+    "version": "1.0.0",
     "type":"library",
     "keywords": [
       "aldrapay",
