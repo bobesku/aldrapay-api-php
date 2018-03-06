@@ -69,7 +69,7 @@ $transaction->customer->setPhone('+441234567890');
 
 $response = $transaction->submit();
 
-if ($response->isSuccess() ) {
+if ($response->isValid() && !empty($response->getRedirectUrl())) {
 
   $customerRedirect = new CustomerRedirectHostedPage($response->getRedirectUrl(), $response->getUid());
   $customerRedirect->money = $transaction->money;

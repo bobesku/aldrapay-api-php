@@ -36,7 +36,7 @@ $response = $transaction->submit();
 print("Transaction message: " . $response->getMessage() . PHP_EOL);
 print("Transaction status: " . $response->getStatus(). PHP_EOL);
 
-if ($response->isSuccess() || !$response->isFailed() ) {
+if ($response->isValid() && !empty($response->getRedirectUrl())) {
   print("Transaction UID: " . $response->getUid() . PHP_EOL);
   
   $customerRedirect = new CustomerRedirectHostedPage($response->getRedirectUrl(), $response->getUid());
