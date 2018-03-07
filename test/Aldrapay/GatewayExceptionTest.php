@@ -3,6 +3,8 @@ namespace Aldrapay;
 
 class GatewayTransportExceptionTest extends TestCase {
 
+  private $_apiBase;
+	
   function setUp() {
     $this->_apiBase = Settings::$gatewayBase;
     Settings::$gatewayBase = 'https://thedomaindoesntexist.Aldrapaynotexist.com';
@@ -19,11 +21,26 @@ class GatewayTransportExceptionTest extends TestCase {
 
     $auth->money->setAmount($amount);
     $cents = $auth->money->getCents();
+	
+    $this->setUp();
+    $response = $auth->submit();
+    $this->tearDown();
+    
+    $this->assertTrue($response->isValid());
+  }
+  
+  public function test_processingIssuesHandledCorrectly() {
+    $auth = $this->getTestObject();
+
+    $amount = rand(0,10000) / 100;
+
+    $auth->money->setAmount($amount);
+    $cents = $auth->money->getCents();
 
     $response = $auth->submit();
     
     $this->assertTrue($response->isError());
-    $this->assertEqual($response->getMessage(), 'Failed');
+    $this->assertEqual($response->getMessage(), 'Missing parameter -> merchantID');
   }
 
   protected function getTestObject($threed = false) {
@@ -33,22 +50,12 @@ class GatewayTransportExceptionTest extends TestCase {
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('EUR');
     $transaction->setDescription('test');
-    $transaction->setTrackingId('TRACK-GW_EXCEPT-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi'));
-
     $transaction->card->setCardNumber('4200000000000000');
-    $transaction->card->setCardHolder('John Doe');
-    $transaction->card->setCardExpMonth(1);
-    $transaction->card->setCardExpYear(2030);
-    $transaction->card->setCardCvc('123');
-
     $transaction->customer->setFirstName('John');
     $transaction->customer->setLastName('Doe');
-    $transaction->customer->setCountry('LV');
     $transaction->customer->setAddress('Demo str 12');
     $transaction->customer->setCity('Riga');
     $transaction->customer->setZip('LV-1082');
-    $transaction->customer->setIp('127.0.0.1');
-    $transaction->customer->setEmail('john@example.com');
 
     return $transaction;
   }
