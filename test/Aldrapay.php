@@ -31,18 +31,6 @@ if ($log_level == 'DEBUG') {
   \Aldrapay\Logger::getInstance()->setLogLevel(\Aldrapay\Logger::INFO);
 }
 
-
-
-
-echo 'PHP VER #1 -> '.phpversion();
-echo 'PHP VER #2 -> '.PHP_VERSION;
-echo 'PHP RUNVER -> '.getenv('RUNNABLE_PHPVER');
-
-
-exit();
-
-
-
 require_once(dirname(__FILE__) . '/Aldrapay/TestCase.php');
 require_once(dirname(__FILE__) . '/Aldrapay/MoneyTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/CustomerTest.php');
