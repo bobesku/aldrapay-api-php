@@ -7,7 +7,7 @@ class AuthorizationOperationTest extends TestCase {
 
     $auth = $this->getTestObjectInstance();
 
-    $description = 'Test desc '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
+    $description = 'Test desc '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi');
 
     $auth->setDescription($description);
 
@@ -16,7 +16,7 @@ class AuthorizationOperationTest extends TestCase {
 
   public function test_setTrackingId() {
     $auth = $this->getTestObjectInstance();
-    $tracking_id = 'Test tracking_id '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
+    $tracking_id = 'Test tracking_id '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi');
     $auth->setTrackingId($tracking_id);
     $this->assertEqual($auth->getTrackingId(), $tracking_id);
   }
@@ -41,7 +41,7 @@ class AuthorizationOperationTest extends TestCase {
     $arr = array(
     		'amount' => 12.33,
     		'currency' => 'USD',
-    		'orderID' => 'TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
+    		'orderID' => 'TRACK-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'),
     		'returnURL' => '',
     		'notifyURL' => '',
     		'customerIP' => '127.0.0.1',
@@ -64,7 +64,7 @@ class AuthorizationOperationTest extends TestCase {
     		'cardHolderName' => 'John Doe',
     		//'cardHolderName' => $this->customer->getFirstName() . $this->customer->getLastName(),
     		//'saveCard' => $this->registerToken(),
-    		'description' => 'test auth '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
+    		'description' => 'test auth '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'),
     );
     
     $reflection = new \ReflectionClass( 'Aldrapay\AuthorizationOperation');
@@ -175,8 +175,8 @@ class AuthorizationOperationTest extends TestCase {
     
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test auth '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
-    $transaction->setTrackingId('TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('test auth '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
+    $transaction->setTrackingId('TRACK-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
     $transaction->setLanguage('en');
 
     $transaction->card->setCardNumber('4111110000000112');

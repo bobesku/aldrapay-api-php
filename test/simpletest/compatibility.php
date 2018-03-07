@@ -19,7 +19,7 @@ class SimpleTestCompatibility {
      *    @access public
      */
     static function copy($object) {
-        if (version_compare(phpversion(), '5') >= 0) {
+        if (version_compare($this->phpVer, '5') >= 0) {
             eval('$copy = clone $object;');
             return $copy;
         }
@@ -36,7 +36,7 @@ class SimpleTestCompatibility {
      *    @access public
      */
     static function isIdentical($first, $second) {
-        if (version_compare(phpversion(), '5') >= 0) {
+        if (version_compare($this->phpVer, '5') >= 0) {
             return SimpleTestCompatibility::isIdenticalType($first, $second);
         }
         if ($first != $second) {
@@ -103,7 +103,7 @@ class SimpleTestCompatibility {
      *    @access public
      */
     static function isReference(&$first, &$second) {
-        if (version_compare(phpversion(), '5', '>=') && is_object($first)) {
+        if (version_compare($this->phpVer, '5', '>=') && is_object($first)) {
             return ($first === $second);
         }
         if (is_object($first) && is_object($second)) {
@@ -129,7 +129,7 @@ class SimpleTestCompatibility {
      *    @access public
      */
     static function isA($object, $class) {
-        if (version_compare(phpversion(), '5') >= 0) {
+        if (version_compare($this->phpVer, '5') >= 0) {
             if (! class_exists($class, false)) {
                 if (function_exists('interface_exists')) {
                     if (! interface_exists($class, false))  {

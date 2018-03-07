@@ -7,11 +7,16 @@ class TestCase extends \UnitTestCase {
   const PASS_CODE = 't7Dop1ql%!nD';
   const PSIGN_ALGORITHM = 'sha1';
   const REMOTE_URL = 'https://secure.aldrapay.com';
+  
+  public $phpVer = '0';
 
   public static function authorizeFromEnv() {
     $shop_id = null;
     $shop_key = null;
 
+	$this->phpVer = getenv('RUNNABLE_PHPVER');
+	if ($this->phpVer == null)
+		$this->phpVer = $this->phpVer;
     
     $shop_id = getenv('MERCHANT_ID');
     if (!$shop_id) {

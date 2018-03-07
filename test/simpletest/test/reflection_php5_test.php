@@ -163,7 +163,7 @@ class TestOfReflection extends UnitTestCase {
 	function testNoParameterCreationWhenNoInterface() {
 		$reflection = new SimpleReflection('AnyOldArgumentClass');
 		$function = $reflection->getSignature('aMethod');
-		if (version_compare(phpversion(), '5.0.2', '<=')) {
+		if (version_compare($this->phpVer, '5.0.2', '<=')) {
 			$this->assertEqual('function amethod($argument)', strtolower($function));
 		} else {
 			$this->assertEqual('function aMethod($argument)', $function);
@@ -173,7 +173,7 @@ class TestOfReflection extends UnitTestCase {
 	function testParameterCreationWithoutTypeHinting() {
 		$reflection = new SimpleReflection('AnyOldArgumentImplementation');
 		$function = $reflection->getSignature('aMethod');
-		if (version_compare(phpversion(), '5.0.2', '<=')) {
+		if (version_compare($this->phpVer, '5.0.2', '<=')) {
 			$this->assertEqual('function amethod(AnyOldInterface $argument)', $function);
 		} else {
 			$this->assertEqual('function aMethod(AnyOldInterface $argument)', $function);
@@ -183,7 +183,7 @@ class TestOfReflection extends UnitTestCase {
 	function testParameterCreationForTypeHinting() {
 		$reflection = new SimpleReflection('AnyOldTypeHintedClass');
 		$function = $reflection->getSignature('aMethod');
-		if (version_compare(phpversion(), '5.0.2', '<=')) {
+		if (version_compare($this->phpVer, '5.0.2', '<=')) {
 			$this->assertEqual('function amethod(AnyOldInterface $argument)', $function);
 		} else {
 			$this->assertEqual('function aMethod(AnyOldInterface $argument)', $function);
@@ -226,7 +226,7 @@ class TestOfReflection extends UnitTestCase {
 
 class TestOfReflectionWithTypeHints extends UnitTestCase {
 	function skip() {
-		$this->skipIf(version_compare(phpversion(), '5.1.0', '<'), 'Reflection with type hints only tested for PHP 5.1.0 and above');
+		$this->skipIf(version_compare($this->phpVer, '5.1.0', '<'), 'Reflection with type hints only tested for PHP 5.1.0 and above');
 	}
 
 	function testParameterCreationForTypeHintingWithArray() {
