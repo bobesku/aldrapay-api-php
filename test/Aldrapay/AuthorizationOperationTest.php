@@ -7,7 +7,7 @@ class AuthorizationOperationTest extends TestCase {
 
     $auth = $this->getTestObjectInstance();
 
-    $description = 'Test description';
+    $description = 'Test desc '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
 
     $auth->setDescription($description);
 
@@ -16,7 +16,7 @@ class AuthorizationOperationTest extends TestCase {
 
   public function test_setTrackingId() {
     $auth = $this->getTestObjectInstance();
-    $tracking_id = 'Test tracking_id';
+    $tracking_id = 'Test tracking_id '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
     $auth->setTrackingId($tracking_id);
     $this->assertEqual($auth->getTrackingId(), $tracking_id);
   }

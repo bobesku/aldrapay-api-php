@@ -86,7 +86,7 @@ class RefundOperationTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test payment refund');
+    $transaction->setDescription('test payment refund '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
     
     if ($trackId == null)
     	$transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));

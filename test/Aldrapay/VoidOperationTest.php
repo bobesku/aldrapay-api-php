@@ -85,7 +85,7 @@ class VoidOperationTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test auth void');
+    $transaction->setDescription('test auth void '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
     
     if ($trackId == null)
     	$transaction->setTrackingId('TRACK-'.date('YmdHi'));
