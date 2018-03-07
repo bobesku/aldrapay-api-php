@@ -3,8 +3,8 @@ namespace Aldrapay;
 
 class TestCase extends \UnitTestCase {
 
-  const SHOP_ID = 457;
-  const SHOP_KEY = 't7Dop1ql%!nD';
+  const MERCHANT_ID = 457;
+  const PASS_CODE = 't7Dop1ql%!nD';
   const PSIGN_ALGORITHM = 'sha1';
   const REMOTE_URL = 'https://secure.aldrapay.com';
 
@@ -13,15 +13,15 @@ class TestCase extends \UnitTestCase {
     $shop_key = null;
 
     
-    $shop_id = getenv('SHOP_ID');
+    $shop_id = getenv('MERCHANT_ID');
     if (!$shop_id) {
-        $shop_id = self::SHOP_ID;
+        $shop_id = self::MERCHANT_ID;
     }
-    $shop_key = getenv('SHOP_SECRET_KEY');
+    $shop_key = getenv('PASS_CODE');
     if (!$shop_key) {
-        $shop_key = self::SHOP_KEY;
+        $shop_key = self::PASS_CODE;
     }
-    $psign_algorithm = getenv('SHOP_PUB_KEY');
+    $psign_algorithm = getenv('PSIGN_ALGORITHM');
     if (!$psign_algorithm) {
         $psign_algorithm = self::PSIGN_ALGORITHM;
     }

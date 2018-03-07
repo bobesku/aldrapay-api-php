@@ -43,7 +43,7 @@ class VoidOperationTest extends TestCase {
   public function test_successVoidRequest() {
 
     $amount = rand(10,40);
-	$trackIdSuccess = 'TRACK-'.date('YmdHi').'-VOID-OK';
+	$trackIdSuccess = 'TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi').'-VOID-OK';
     $parent = $this->runParentTransaction($amount, $trackIdSuccess);
 
     $transaction = $this->getTestObjectInstance();
@@ -64,7 +64,7 @@ class VoidOperationTest extends TestCase {
   public function test_errorVoidRequest() {
     
   	$amount = rand(10,40);
-    $trackIdError = 'TRACK-'.date('YmdHi').'-VOID-ERR';
+    $trackIdError = 'TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi').'-VOID-ERR';
     $parent = $this->runParentTransaction($amount, $trackIdError);
 
     $transaction = $this->getTestObjectInstance();

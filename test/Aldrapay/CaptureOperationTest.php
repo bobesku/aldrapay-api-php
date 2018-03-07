@@ -89,7 +89,7 @@ class CaptureOperationTest extends TestCase {
     $transaction->setDescription('test auth capture');
     
     if ($trackId == null)
-    	$transaction->setTrackingId('TRACK-'.date('YmdHi'));
+    	$transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
     else
     	$transaction->setTrackingId($trackId);
 
