@@ -44,7 +44,7 @@ class CaptureOperationTest extends TestCase {
   public function test_successCapture() {
 
     $amount = rand(10,40);
-	$trackIdSuccess = 'TRACK-'.date('YmdHi').'-CAPTURE-OK';
+	$trackIdSuccess = 'TRACK-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi').'-CAPTURE-OK';
     $parent = $this->runParentTransaction($amount, $trackIdSuccess);
 
     $transaction = $this->getTestObjectInstance();
@@ -65,7 +65,7 @@ class CaptureOperationTest extends TestCase {
   public function test_errorCapture() {
     
   	$amount = rand(10,40);
-    $trackIdError = 'TRACK-'.date('YmdHi').'-CAPTURE-ERR';
+    $trackIdError = 'TRACK-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi').'-CAPTURE-ERR';
     $parent = $this->runParentTransaction($amount, $trackIdError);
 
     $transaction = $this->getTestObjectInstance();
