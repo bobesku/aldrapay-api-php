@@ -64,7 +64,7 @@ class AuthorizationOperationTest extends TestCase {
     		'cardHolderName' => 'John Doe',
     		//'cardHolderName' => $this->customer->getFirstName() . $this->customer->getLastName(),
     		//'saveCard' => $this->registerToken(),
-    		'description' => 'test',
+    		'description' => 'test auth '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
     );
     
     $reflection = new \ReflectionClass( 'Aldrapay\AuthorizationOperation');
