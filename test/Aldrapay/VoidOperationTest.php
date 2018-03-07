@@ -43,7 +43,7 @@ class VoidOperationTest extends TestCase {
   public function test_successVoidRequest() {
 
     $amount = rand(10,40);
-	$trackIdSuccess = 'TRACK-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi').'-VOID-OK';
+	$trackIdSuccess = 'TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi').'-VOID-OK';
     $parent = $this->runParentTransaction($amount, $trackIdSuccess);
 
     $transaction = $this->getTestObjectInstance();
@@ -64,7 +64,7 @@ class VoidOperationTest extends TestCase {
   public function test_errorVoidRequest() {
     
   	$amount = rand(10,40);
-    $trackIdError = 'TRACK-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi').'-VOID-ERR';
+    $trackIdError = 'TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi').'-VOID-ERR';
     $parent = $this->runParentTransaction($amount, $trackIdError);
 
     $transaction = $this->getTestObjectInstance();
@@ -85,7 +85,7 @@ class VoidOperationTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test auth void '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('test auth void '.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
     
     if ($trackId == null)
     	$transaction->setTrackingId('TRACK-'.date('YmdHi'));

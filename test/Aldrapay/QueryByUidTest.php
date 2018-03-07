@@ -61,10 +61,10 @@ class QueryByUidTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test status trx '.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('test status trx '.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
     
     if ($trackId == null)
-    	$transaction->setTrackingId('TRACK-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
+    	$transaction->setTrackingId('TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
    	else
    		$transaction->setTrackingId($trackId);
 

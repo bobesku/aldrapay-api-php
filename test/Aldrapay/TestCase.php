@@ -10,13 +10,17 @@ class TestCase extends \UnitTestCase {
   
   public $phpVer = '0';
 
+  public static function getCurrentPhpVer() {
+  	$phpVer = null;
+  	$phpVer = getenv('RUNNABLE_PHPVER');
+	if (!$phpVer)
+		$phpVer = phpversion();
+  }
+  
   public static function authorizeFromEnv() {
     $shop_id = null;
     $shop_key = null;
 
-	$this->phpVer = getenv('RUNNABLE_PHPVER');
-	if ($this->phpVer == null)
-		$this->phpVer = $this->phpVer;
     
     $shop_id = getenv('MERCHANT_ID');
     if (!$shop_id) {

@@ -33,7 +33,7 @@ class GatewayTransportExceptionTest extends TestCase {
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('EUR');
     $transaction->setDescription('test');
-    $transaction->setTrackingId('TRACK-GW_EXCEPT-'.substr($this->phpVer,0,strpos($this->phpVer,'-')).'-'.date('YmdHi'));
+    $transaction->setTrackingId('TRACK-GW_EXCEPT-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
 
     $transaction->card->setCardNumber('4200000000000000');
     $transaction->card->setCardHolder('John Doe');
