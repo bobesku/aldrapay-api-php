@@ -175,7 +175,7 @@ class AuthorizationOperationTest extends TestCase {
     
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test');
+    $transaction->setDescription('test auth '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     $transaction->setTrackingId('TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     $transaction->setLanguage('en');
 
