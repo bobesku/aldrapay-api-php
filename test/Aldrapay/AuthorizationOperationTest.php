@@ -41,7 +41,7 @@ class AuthorizationOperationTest extends TestCase {
     $arr = array(
     		'amount' => 12.33,
     		'currency' => 'USD',
-    		'orderID' => 'TRACK-'.date('YmdHi'),
+    		'orderID' => 'TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'),
     		'returnURL' => '',
     		'notifyURL' => '',
     		'customerIP' => '127.0.0.1',
@@ -176,7 +176,7 @@ class AuthorizationOperationTest extends TestCase {
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('USD');
     $transaction->setDescription('test');
-    $transaction->setTrackingId('TRACK-'.date('YmdHi'));
+    $transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
     $transaction->setLanguage('en');
 
     $transaction->card->setCardNumber('4111110000000112');
