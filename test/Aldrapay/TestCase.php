@@ -30,6 +30,10 @@ class TestCase extends \UnitTestCase {
         $remote_endpoint = self::REMOTE_URL;
     }
 
+    error_log('ENV VARS -> '.getenv('MERCHANT_ID').' | '.getenv('PASS_CODE').' | '.getenv('PSIGN_ALGORITHM').' | '.getenv('REMOTE_URL'));
+    error_log('ENV SETTINGS FROM VARS -> '.$shop_id.' | '.$shop_key.' | '.$psign_algorithm.' | '.$remote_endpoint);
+    
+    
     Settings::$merchantId = $shop_id;
     Settings::$passCode = $shop_key;
     Settings::$pSignAlgorithm = $psign_algorithm;
