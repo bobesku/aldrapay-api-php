@@ -15,6 +15,7 @@ class TestCase extends \UnitTestCase {
   	$phpVer = getenv('RUNNABLE_PHPVER');
 	if (!$phpVer)
 		$phpVer = phpversion();
+	return $phpVer;
   }
   
   public static function authorizeFromEnv() {
