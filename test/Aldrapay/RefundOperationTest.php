@@ -44,7 +44,7 @@ class RefundOperationTest extends TestCase {
   public function test_successRefundRequest() {
 
   	$amount = rand(10,40);
-  	$trackIdSuccess = 'TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi').'-REFUND-OK';
+  	$trackIdSuccess = 'TRACK-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi').'-REFUND-OK';
   	$parent = $this->runParentTransaction($amount, $trackIdSuccess);
 
     $transaction = $this->getTestObjectInstance();
@@ -65,7 +65,7 @@ class RefundOperationTest extends TestCase {
   public function test_errorRefundRequest() {
     
   	$amount = rand(10,40);
-  	$trackIdError = 'TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi').'-REFUND-ERR';
+  	$trackIdError = 'TRACK-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi').'-REFUND-ERR';
   	$parent = $this->runParentTransaction($amount, $trackIdError);
 
     $transaction = $this->getTestObjectInstance();
@@ -86,10 +86,10 @@ class RefundOperationTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test payment refund '.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('test payment refund '.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi'));
     
     if ($trackId == null)
-    	$transaction->setTrackingId('TRACK-'.substr(self::getCurrentPhpVer(),0,strpos(self::getCurrentPhpVer(),'-')).'-'.date('YmdHi'));
+    	$transaction->setTrackingId('TRACK-'.substr(self::getCurrentPhpVer(),0,3).'-'.date('YmdHi'));
    	else
    		$transaction->setTrackingId($trackId);
 
