@@ -63,7 +63,7 @@ class TestOfCompatibility extends UnitTestCase {
         $this->assertFalse(SimpleTestCompatibility::isReference(
                 $object,
                 $object_copy));
-        if (version_compare($this->phpVer, '5', '>=')) {
+        if (version_compare(phpversion(), '5', '>=')) {
             $this->assertTrue(SimpleTestCompatibility::isReference(
                     $object,
                     $object_assignment));

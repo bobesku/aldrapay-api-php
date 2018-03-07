@@ -286,7 +286,7 @@ class SimpleReflection {
         if ($name == '__call') {
             return 'function __call($method, $arguments)';
         }
-        if (version_compare($this->phpVer, '5.1.0', '>=')) {
+        if (version_compare(phpversion(), '5.1.0', '>=')) {
             if (in_array($name, array('__get', '__isset', $name == '__unset'))) {
                 return "function {$name}(\$key)";
             }
@@ -340,7 +340,7 @@ class SimpleReflection {
         foreach ($method->getParameters() as $parameter) {
             $signature = '';
             $type = $parameter->getClass();
-            if (is_null($type) && version_compare($this->phpVer, '5.1.0', '>=') && $parameter->isArray()) {
+            if (is_null($type) && version_compare(phpversion(), '5.1.0', '>=') && $parameter->isArray()) {
                 $signature .= 'array ';
             } elseif (!is_null($type)) {
                 $signature .= $type->getName() . ' ';

@@ -179,7 +179,7 @@ class TestOfCallSchedule extends UnitTestCase {
     }
 
     function testCanThrowException() {
-        if (version_compare($this->phpVer, '5', '>=')) {
+        if (version_compare(phpversion(), '5', '>=')) {
             $schedule = new SimpleCallSchedule();
             $schedule->register('aMethod', false, new SimpleThrower(new Exception('Ouch')));
             $this->expectException(new Exception('Ouch'));
@@ -649,7 +649,7 @@ Mock::generate('ClassWithSpecialMethods');
 class TestOfSpecialMethodsAfterPHP51 extends UnitTestCase {
 
     function skip() {
-        $this->skipIf(version_compare($this->phpVer, '5.1', '<'), '__isset and __unset overloading not tested unless PHP 5.1+');
+        $this->skipIf(version_compare(phpversion(), '5.1', '<'), '__isset and __unset overloading not tested unless PHP 5.1+');
     }
 
     function testCanEmulateIsset() {
@@ -668,7 +668,7 @@ class TestOfSpecialMethodsAfterPHP51 extends UnitTestCase {
 
 class TestOfSpecialMethods extends UnitTestCase {
     function skip() {
-        $this->skipIf(version_compare($this->phpVer, '5', '<'), 'Overloading not tested unless PHP 5+');
+        $this->skipIf(version_compare(phpversion(), '5', '<'), 'Overloading not tested unless PHP 5+');
     }
 
     function testCanMockTheThingAtAll() {
