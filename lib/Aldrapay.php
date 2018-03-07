@@ -36,6 +36,7 @@ if (!class_exists('\Aldrapay\Settings')) {
   require_once (__DIR__ . '/Aldrapay/RefundOperation.php');
   require_once (__DIR__ . '/Aldrapay/CreditOperation.php');
   require_once (__DIR__ . '/Aldrapay/QueryByUid.php');
+  require_once (__DIR__ . '/Aldrapay/Webhook.php');
   require_once (__DIR__ . '/Aldrapay/PaymentMethod/Base.php');
   require_once (__DIR__ . '/Aldrapay/PaymentMethod/CreditCard.php');
 }

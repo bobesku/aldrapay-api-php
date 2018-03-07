@@ -40,6 +40,7 @@ require_once(dirname(__FILE__) . '/Aldrapay/CaptureOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/VoidOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/RefundOperationTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/QueryByUidTest.php');
+require_once(dirname(__FILE__) . '/Aldrapay/WebhookTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/GatewayExceptionTest.php');
 require_once(dirname(__FILE__) . '/Aldrapay/PaymentMethod/CreditCardTest.php');
 ?>
