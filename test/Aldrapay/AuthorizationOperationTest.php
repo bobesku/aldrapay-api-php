@@ -7,7 +7,7 @@ class AuthorizationOperationTest extends TestCase {
 
     $auth = $this->getTestObjectInstance();
 
-    $description = 'Test desc '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
+    $description = 'Test desc '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
 
     $auth->setDescription($description);
 
@@ -16,7 +16,7 @@ class AuthorizationOperationTest extends TestCase {
 
   public function test_setTrackingId() {
     $auth = $this->getTestObjectInstance();
-    $tracking_id = 'Test tracking_id '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
+    $tracking_id = 'Test tracking_id '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
     $auth->setTrackingId($tracking_id);
     $this->assertEqual($auth->getTrackingId(), $tracking_id);
   }
@@ -41,7 +41,7 @@ class AuthorizationOperationTest extends TestCase {
     $arr = array(
     		'amount' => 12.33,
     		'currency' => 'USD',
-    		'orderID' => 'TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'),
+    		'orderID' => 'TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
     		'returnURL' => '',
     		'notifyURL' => '',
     		'customerIP' => '127.0.0.1',
@@ -176,7 +176,7 @@ class AuthorizationOperationTest extends TestCase {
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('USD');
     $transaction->setDescription('test');
-    $transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
+    $transaction->setTrackingId('TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     $transaction->setLanguage('en');
 
     $transaction->card->setCardNumber('4111110000000112');

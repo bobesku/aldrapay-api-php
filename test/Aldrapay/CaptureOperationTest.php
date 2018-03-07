@@ -86,10 +86,10 @@ class CaptureOperationTest extends TestCase {
 
     $transaction->money->setAmount($amount);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('test auth capture '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('test auth capture '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     
     if ($trackId == null)
-    	$transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
+    	$transaction->setTrackingId('TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     else
     	$transaction->setTrackingId($trackId);
 

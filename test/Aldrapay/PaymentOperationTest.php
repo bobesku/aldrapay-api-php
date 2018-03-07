@@ -7,7 +7,7 @@ class PaymentOperationTest extends TestCase {
 
     $auth = $this->getTestObjectInstance();
 
-    $description = 'Test desc '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
+    $description = 'Test desc '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
 
     $auth->setDescription($description);
 
@@ -18,7 +18,7 @@ class PaymentOperationTest extends TestCase {
 
     $auth = $this->getTestObjectInstance();
 
-    $tracking_id = 'Test tracking_id '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi');
+    $tracking_id = 'Test tracking_id '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi');
 
     $auth->setTrackingId($tracking_id);
     $this->assertEqual($auth->getTrackingId(), $tracking_id);
@@ -65,7 +65,7 @@ class PaymentOperationTest extends TestCase {
     $arr = array(
     		'amount' => 12.33,
     		'currency' => 'USD',
-    		'orderID' => 'TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'),
+    		'orderID' => 'TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
     		'returnURL' => '',
     		'notifyURL' => '',
     		'customerIP' => '127.0.0.1',
@@ -88,7 +88,7 @@ class PaymentOperationTest extends TestCase {
     		'cardHolderName' => 'John Doe',
     		//'cardHolderName' => $this->customer->getFirstName() . $this->customer->getLastName(),
     		//'saveCard' => $this->registerToken(),
-    		'description' => 'payment test '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'),
+    		'description' => 'payment test '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'),
     );
 
     $reflection = new \ReflectionClass( 'Aldrapay\PaymentOperation');
@@ -163,8 +163,8 @@ class PaymentOperationTest extends TestCase {
     
     $transaction->money->setAmount(12.33);
     $transaction->money->setCurrency('USD');
-    $transaction->setDescription('payment test '.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
-    $transaction->setTrackingId('TRACK-'.substr(PHP_VERSION,0,strpos(PHP_VERSION,'-')).'-'.date('YmdHi'));
+    $transaction->setDescription('payment test '.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
+    $transaction->setTrackingId('TRACK-'.substr(phpversion(),0,strpos(phpversion(),'-')).'-'.date('YmdHi'));
     $transaction->setLanguage('en');
 
     $transaction->card->setCardNumber('4111110000000112');
