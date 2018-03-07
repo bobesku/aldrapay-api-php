@@ -16,6 +16,7 @@ abstract class ApiAbstract {
   }
 
   protected function _remoteRequest() {
+  	error_log('ApiAnstract/_remoteRequest init');
     return GatewayTransport::submit( Settings::$merchantId, Settings::$passCode , $this->_endpoint(), $this->_buildRequestMessage() );
   }
 

@@ -73,6 +73,8 @@ class AuthorizationOperation extends ApiAbstract {
     	//'saveCard' => $this->registerToken(),
         'description' => $this->getDescription(),
     );
+    
+    error_log('AuthorizationOperation/_buildRequestMessage: '.print_r($request,true));
 
     Logger::getInstance()->write($request, Logger::DEBUG, get_class() . '::' . __FUNCTION__);
 

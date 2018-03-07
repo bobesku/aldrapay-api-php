@@ -4,7 +4,9 @@ namespace Aldrapay;
 class GatewayTransport {
 
     public static function submit($merchant_id, $pass_code, $host, $t_request) {
-
+		
+    	error_log('GatewayTransport/submit init');
+    	
     	$pSign = ['pSign' => hash(Settings::$pSignAlgorithm, Settings::$passCode.Settings::$merchantId.implode('',array_values($t_request)))];
     	$t_request = array_merge(array('merchantID' => $merchant_id), $t_request, $pSign);
     	
@@ -27,10 +29,12 @@ class GatewayTransport {
         curl_setopt($process, CURLOPT_SSL_VERIFYPEER, false);
         
         $response = curl_exec($process);
+    	error_log('GatewayTransport/submit curl executed');
         $error = curl_error($process);
         curl_close($process);
 
         if ($response === false) {
+	    	error_log('GatewayTransport/submit curl error: '.$error);
           throw new \Exception("cURL error " . $error);
         }
 
