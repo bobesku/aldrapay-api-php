@@ -58,6 +58,7 @@ abstract class ApiAbstract {
   	
     list($module,$klass) = explode('\\', get_class($this));
     $klass = str_replace('Operation', '', $klass);
+    $klass = str_replace('HostedPage', '', $klass);
     $klass = strtolower($klass);
     return $klass;
   }
