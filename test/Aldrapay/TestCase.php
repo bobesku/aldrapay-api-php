@@ -9,6 +9,11 @@ class TestCase extends \UnitTestCase {
   const REMOTE_URL = 'https://secure.aldrapay.com';
   
   public $phpVer = '0';
+  
+  public function test_initialTestCase() {
+  	 
+  	$this->assertEqual(self::getCurrentPhpVer(), self::getCurrentPhpVer());
+  }
 
   public static function getCurrentPhpVer() {
   	$phpVer = null;

@@ -14,6 +14,29 @@ class Webhook extends Response {
   	parent::__construct(json_encode($httpParams));
   }
   
+  
+  public function assignResponse($response){
+  	if (is_array($response))
+  		$this->__setResponseArray($response);
+  	else if (is_object($response))
+  		$this->__setResponse($response);
+  	else 
+  		return;
+  }
+  
+  private function __setResponseArray($arr){
+  	$this->_responseArray = $arr;
+  	$this->_response = json_decode(json_encode($arr));
+  }
+  
+  
+  private function __setResponse($obj){
+  	$this->_response = $obj;
+  	$this->_responseArray = json_decode(json_encode($obj));
+  }
+  
+  
+  
   public function isAuthorized() {
   	
   	if ($this->_responseArray == null)
